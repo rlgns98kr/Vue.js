@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        GiHoon
+        <input type="text" id="inputText" /><br />
+        <p id="pText"></p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var p = document.getElementById("pText");
+        var inputText = document.getElementById("inputText");
+        inputText.addEventListener("input", (e) => {
+            p.innerHTML = e.target.value;
+        })
+    </script>
+</body>
+
+</html>
