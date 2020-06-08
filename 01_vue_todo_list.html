@@ -5,15 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .completed {
+            text-decoration: line-through;
+        }
+    </style>
 </head>
 
 <body>
     <div id="app">
         <h1>Todo List</h1>
-        <input type="text" />
+        <input v-on:keypress.enter="createTodo" v-model="newInput" type="text" />
+        <button v-on:click="createTodo">추가</button>
         <ul>
-            <li>Vue js 복습</li>
-            <li>Javascript 복습</li>
+            <li v-for="todo in todos" v-bind:type="{circle:todo.isCompleted}">
+                <input type="checkbox" v-model="todo.isCompleted" />
+                {{todo.content}}
+            </li>
         </ul>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -21,7 +29,21 @@
         new Vue({
             el: '#app',
             data: {
-                name: 'gihoon'
+                name: 'gihoon',
+                newInput: '',
+                todos: [
+                    { content: 'Vue JS 복습', isCompleted: false },
+                    { content: 'JS 복습', isCompleted: false },
+                    { content: '코딩 테스트 준비', isCompleted: true },
+                    { content: 'Node JS 복습', isCompleted: true }
+                ],
+                information: {}
+            },
+            methods: {
+                createTodo() {
+                    this.todos.push({ content: this.newInput, isCompleted: false });
+                    this.newInput = '';
+                }
             }
         })  
     </script>
