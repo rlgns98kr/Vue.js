@@ -25,6 +25,14 @@ Model-View-ViewModel
 - `v-for` : 배열과 같은 데이터를 순회
 - `v-if` : 조건부 렌더링
 - `v-else` : 조건부 렌더링
-- `v-on:이벤트` : 이벤트 바인딩(`addEventListener()`)
+- `v-on:이벤트` : 이벤트 바인딩(`addEventListener()`)(`@`)
 - `v-model` : 양방향 데이터 바인딩
-- `v-bind:속성` : 속성에 바인딩
+- `v-bind:속성` : 속성 바인딩 (`:`)
+- `v-text` : 데이터 렌더(text) innerText
+- `v-html` : 데이터 렌더(html) innerHTML
+
+### 2. Vue Instance
+- `el: '#app'` : 마운트 포인트
+- `data: {}` : 관리할 데이터
+- `methods: {}` : 함수
+- `computed: {}` : 함수화된 데이터

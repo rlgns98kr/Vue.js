@@ -4,23 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Document</title>
 </head>
 
 <body>
     <div id="app">
         <h1>Identicon 생성기</h1>
+        <select v-model="selectData">
+            <option value='80'>소(80*80)</option>
+            <option value='160'>중(160*160)</option>
+            <option value='300'>대(300*300)</option>
+        </select>
         Input : <input v-model="inputData" oninput="jdenticon()"></br>
-        Output :</br>
-        <svg width="160" height="160" v-bind:data-jdenticon-value="inputData"></svg>
+        Output :
+        <div>
+            jdenticon method를 활용한 svg 생성:
+            <div v-html="identicon()"></div>
+        </div>
+
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/jdenticon@2.2.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jdenticon@2.2.0">
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
         new Vue({
             el: "#app",
-            data: { inputData: '' },
+            data: {
+                inputData: '',
+                selectData: '80'
+            },
+            methods: {
+                identicon() {
+                    return jdenticon.toSvg(this.inputData, this.selectData)
+                }
+            }
         })
     </script>
 </body>
