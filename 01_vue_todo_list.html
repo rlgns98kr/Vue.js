@@ -37,7 +37,9 @@
             save(data) {
                 localStorage.setItem('todos', JSON.stringify(data));
             },
-
+            fetch() {
+                return JSON.parse(localStorage.getItem('todos'));
+            }
         }
         const app = new Vue({
             el: '#app',
@@ -70,12 +72,16 @@
             },
             watch: {
                 todos: {
-                    handler() {
-                        todoStorage.save(this.todos);
-                    }
+                    handler: function (todos) {
+                        todoStorage.save(todos);
+                    },
+                    deep: true
                 }
+            },
+            created: function () {
+                this.todos = todoStorage.fetch();
             }
-        })  
+        })
     </script>
 </body>
 
