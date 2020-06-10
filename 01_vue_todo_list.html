@@ -23,56 +23,56 @@
         <input v-on:keypress.enter="createTodo" v-model="newInput" type="text" />
         <button v-on:click="createTodo">추가</button>
         <ul>
-            <li v-for="todo in todosByStatus()" v-bind:class="{completed:todo.isCompleted}">
+            <li v-for="todo in todosByStatus" v-bind:key="todo.id" v-bind:class="{completed:todo.isCompleted}">
                 <input type="checkbox" v-model="todo.isCompleted" />
                 {{todo.content}}
             </li>
         </ul>
         <button v-on:click="removeCompleted">완료된 할 일 지우기</button>
 
-        <h1>computed VS Method</h1>
-        <p>{{computedDate}}</p>
-        <p>{{methodDate()}}</p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
-        new Vue({
+        const todoStorage = {
+            save(data) {
+                localStorage.setItem('todos', JSON.stringify(data));
+            },
+
+        }
+        const app = new Vue({
             el: '#app',
             data: {
                 name: 'gihoon',
                 newInput: '',
-                todos: [
-                    { content: 'Vue JS 복습', isCompleted: false },
-                    { content: 'JS 복습', isCompleted: false },
-                    { content: '코딩 테스트 준비', isCompleted: true },
-                    { content: 'Node JS 복습', isCompleted: true }
-                ],
+                todos: [],
                 status: 'showAll'
             },
             computed: {
-                computedDate() {
-                    return new Date();
+                todosByStatus() {
+                    if (this.status === 'showCompleted') return this.todos.filter(todo => todo.isCompleted)
+                    else if (this.status === 'showIncomplete') return this.todos.filter(todo => !todo.isCompleted)
+                    return this.todos;
                 }
             },
             methods: {
-                methodDate() {
-                    return new Date();
-                },
                 removeCompleted() {
                     this.todos = this.todos.filter(todo => !todo.isCompleted);
                 },
                 createTodo() {
                     if (this.newInput) {
-                        this.todos.push({ content: this.newInput, isCompleted: false });
+                        this.todos.push({ id: new Date().valueOf(), content: this.newInput, isCompleted: false });
                         this.newInput = '';
                     } else {
                         alert('Please enter after writing');
                     }
                 },
-                todosByStatus() {
-                    if (this.status === 'showCompleted') return this.todos.filter(todo => todo.isCompleted)
-                    else if (this.status === 'showIncomplete') return this.todos.filter(todo => !todo.isCompleted)
-                    return this.todos;
+
+            },
+            watch: {
+                todos: {
+                    handler() {
+                        todoStorage.save(this.todos);
+                    }
                 }
             }
         })  
