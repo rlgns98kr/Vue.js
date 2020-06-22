@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Lunch from '../views/Lunch.vue'
 import Lotto from '../views/Lotto.vue'
+import Todos from '../views/Todos.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/lotto',
     name: 'Lotto',
     component: Lotto
+  },
+  {
+    path: "/todos",
+    name: 'Todos',
+    component: Todos
   }
 ]
 
