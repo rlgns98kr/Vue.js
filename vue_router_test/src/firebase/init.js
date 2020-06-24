@@ -13,4 +13,6 @@ var firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
+firebaseApp.firestore().collection('todos')
+
 export default firebaseApp.firestore();
