@@ -1,8 +1,9 @@
 import qs from 'qs'
 import router from '@/router'
+import cookies from 'vue-cookies'
 
 const state = {
-    token: null,
+    token: cookies.get('imgur_token'),
 }
 const getters = {
     isLoggedIn: state => !!state.token
@@ -15,6 +16,7 @@ const mutations = {
 const actions = {
     logout({ commit }) {
         commit('setToken', null);
+        cookies.remove("imgur_token")
     },
     login() {
         const ROOT_URL = 'https://api.imgur.com/oauth2/authorize?';
@@ -29,6 +31,7 @@ const actions = {
     },
     finalizeLogin({ commit }) {
         commit('setToken', qs.parse(location.hash.replace('#', '')).access_token)
+        cookies.set('imgur_token', qs.parse(location.hash.replace('#', '')).access_token)
         router.push('/');
     }
 }
