@@ -1,13 +1,21 @@
 <template>
   <div class="dropper">
-    <input type="file" />
+    <input @change="uploadImages" type="file" multiple accept="image/*" />
     <span>Drag and Drop Images here</span>
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
-  name: "UploadForm"
+  name: "UploadForm",
+  methods: {
+    ...mapActions(["uploadImages"]),
+    onChange(e) {
+      console.log(e.target.files);
+    }
+  }
 };
 </script>
 

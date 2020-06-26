@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import AuthHandler from '../views/AuthHandler.vue'
 import ImageList from '../views/ImageList'
 import UploadForm from '../views/UploadForm'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,13 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const authRequiredPages = ['UploadForm'];
+  const { isLoggedIn } = store.getters;
+
+  (!!authRequiredPages.includes(to.name) && !isLoggedIn) ? next('/') : next()
 })
 
 export default router

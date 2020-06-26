@@ -16,7 +16,8 @@ const mutations = {
 const actions = {
     logout({ commit }) {
         commit('setToken', null);
-        cookies.remove("imgur_token")
+        cookies.remove("imgur_token");
+        location.href = '/'
     },
     login() {
         const ROOT_URL = 'https://api.imgur.com/oauth2/authorize?';
